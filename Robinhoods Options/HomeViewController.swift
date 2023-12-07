@@ -22,6 +22,8 @@ class HomeViewController: UIViewController {
     }
     
     func setupUI() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Menu", style: .plain, target: nil, action: nil)
+        
         homeBackground.image = UIImage(named: "homeBackground")
         homeBackground.layer.masksToBounds = true
         homeBackground.contentMode = .scaleAspectFill
@@ -41,6 +43,7 @@ class HomeViewController: UIViewController {
         view.addSubview(homeFAQ)
         
         homeSettings.setImage(UIImage(named: "settings"), for: .normal)
+        homeSettings.addTarget(self, action: #selector(homeMethod), for: .touchUpInside)
         homeSettings.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeSettings)
         
@@ -72,5 +75,10 @@ class HomeViewController: UIViewController {
                 homeSettings.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             ])
         }
+    }
+    
+    @objc func homeMethod() {
+        let settingsVC = SettingsViewController()
+        self.navigationController?.pushViewController(settingsVC, animated: true)
     }
 }
