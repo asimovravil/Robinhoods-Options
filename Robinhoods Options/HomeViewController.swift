@@ -39,11 +39,12 @@ class HomeViewController: UIViewController {
         view.addSubview(homeQuiz)
         
         homeFAQ.setImage(UIImage(named: "faq"), for: .normal)
+        homeFAQ.addTarget(self, action: #selector(homeFAQMethod), for: .touchUpInside)
         homeFAQ.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeFAQ)
         
         homeSettings.setImage(UIImage(named: "settings"), for: .normal)
-        homeSettings.addTarget(self, action: #selector(homeMethod), for: .touchUpInside)
+        homeSettings.addTarget(self, action: #selector(homeSettingsMethod), for: .touchUpInside)
         homeSettings.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeSettings)
         
@@ -77,7 +78,12 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @objc func homeMethod() {
+    @objc func homeFAQMethod() {
+        let faqVC = FAQViewController()
+        self.navigationController?.pushViewController(faqVC, animated: true)
+    }
+    
+    @objc func homeSettingsMethod() {
         let settingsVC = SettingsViewController()
         self.navigationController?.pushViewController(settingsVC, animated: true)
     }

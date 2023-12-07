@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController {
 
         view.backgroundColor = AppColor.backgroundLightGray.uiColor
         setupUI()
-        navigationBarSetup()
+        setupNavBar()
     }
     
     private func setupUI() {
@@ -73,7 +73,7 @@ class SettingsViewController: UIViewController {
         ])
     }
     
-    private func navigationBarSetup() {
+    private func setupNavBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         let titleLabel = UILabel()
@@ -89,7 +89,6 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
 
-    
     @objc private func closeButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
