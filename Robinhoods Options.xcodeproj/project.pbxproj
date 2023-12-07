@@ -22,6 +22,7 @@
 		F19F303F2B21C8F700B5758F /* NotoSans-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F19F30372B21C8F700B5758F /* NotoSans-ExtraLight.ttf */; };
 		F19F30402B21C8F700B5758F /* NotoSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F19F30382B21C8F700B5758F /* NotoSans-Light.ttf */; };
 		F19F30422B21C90800B5758F /* NotoSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F19F30412B21C90800B5758F /* NotoSans-Thin.ttf */; };
+		F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F30432B21CA1000B5758F /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		F19F30372B21C8F700B5758F /* NotoSans-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-ExtraLight.ttf"; sourceTree = "<group>"; };
 		F19F30382B21C8F700B5758F /* NotoSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Light.ttf"; sourceTree = "<group>"; };
 		F19F30412B21C90800B5758F /* NotoSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-Thin.ttf"; sourceTree = "<group>"; };
+		F19F30432B21CA1000B5758F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				F19F2FFC2B21C0D100B5758F /* SceneDelegate.swift */,
 				F19F2FFE2B21C0D100B5758F /* OnboardingViewController.swift */,
 				F19F300E2B21C3D700B5758F /* OnboardingList.swift */,
+				F19F30432B21CA1000B5758F /* HomeViewController.swift */,
 				F19F30032B21C0D300B5758F /* Assets.xcassets */,
 				F19F30052B21C0D300B5758F /* LaunchScreen.storyboard */,
 				F19F30082B21C0D300B5758F /* Info.plist */,
@@ -181,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */,
 				F19F300F2B21C3D700B5758F /* OnboardingList.swift in Sources */,
 				F19F2FFF2B21C0D100B5758F /* OnboardingViewController.swift in Sources */,
 				F19F2FFB2B21C0D100B5758F /* AppDelegate.swift in Sources */,

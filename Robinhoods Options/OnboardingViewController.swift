@@ -19,39 +19,14 @@ class OnboardingViewController: UIViewController {
     let onboardingNext = UIButton()
     let onboardingSkip = UIButton()
     
-    func updateContentForPage(_ page: Int) {
-        let sectionData = onboardingList[page]
-        onboardingTitle.text = sectionData.onboardingTitle
-        onboardingSubTitle.text = sectionData.onboardingSubTitle
-        onboardingImage.image = UIImage(named: sectionData.onboardingImage)
-    }
-    
-    @objc func sectionNextClapped() {
-        if sectionPageList < onboardingList.count - 1 {
-            sectionPageList += 1
-        } else {
-            print("good")
-        }
-        
-        updateContentForPage(sectionPageList)
-        onboardingPage.currentPage = sectionPageList
-    }
-    
-    private func setupNavigationBar() {
-        let sectionSkipBarButton = UIBarButtonItem(customView: onboardingSkip)
-        navigationItem.leftBarButtonItem = sectionSkipBarButton
-        onboardingSkip.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
-    }
-
-    @objc private func skipButtonTapped() {
-        print("good")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateContentForPage(sectionPageList)
+        setupUI()
         setupNavigationBar()
-        
+    }
+    
+    func setupUI() {
         onboardingSkip.setImage(UIImage(named: "skip"), for: .normal)
         view.addSubview(onboardingSkip)
         
@@ -126,14 +101,45 @@ class OnboardingViewController: UIViewController {
             onboardingNext.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
             onboardingNext.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
+    }
+    
+    func updateContentForPage(_ pageonbo: Int) {
+        let sectionData = onboardingList[pageonbo]
+        onboardingTitle.text = sectionData.onboardingTitle
+        onboardingSubTitle.text = sectionData.onboardingSubTitle
+        onboardingImage.image = UIImage(named: sectionData.onboardingImage)
         
-        if UIScreen.main.bounds.size.height >= 812 {
-            NSLayoutConstraint.activate([
-            ])
-        } else {
-            NSLayoutConstraint.activate([
-            ])
+        switch pageonbo {
+        case onboardingList.count - 1:
+            onboardingNext.setImage(UIImage(named: "start"), for: .normal)
+        case onboardingList.count - 2:
+            onboardingNext.setImage(UIImage(named: "continue"), for: .normal)
+        default:
+            onboardingNext.setImage(UIImage(named: "hello"), for: .normal)
         }
+    }
+    
+    @objc func sectionNextClapped() {
+        if sectionPageList < onboardingList.count - 1 {
+            sectionPageList += 1
+        } else {
+            let homeVC = HomeViewController()
+            homeVC.navigationItem.hidesBackButton = true
+            self.navigationController?.pushViewController(homeVC, animated: true)
+        }
+        
+        updateContentForPage(sectionPageList)
+        onboardingPage.currentPage = sectionPageList
+    }
+    
+    private func setupNavigationBar() {
+        let sectionSkipBarButton = UIBarButtonItem(customView: onboardingSkip)
+        navigationItem.leftBarButtonItem = sectionSkipBarButton
+        onboardingSkip.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
+    }
+
+    @objc private func skipButtonTapped() {
+        print("good")
     }
 }
 
