@@ -25,6 +25,7 @@
 		F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19F30432B21CA1000B5758F /* HomeViewController.swift */; };
 		F1E0592E2B21CE98004A63E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */; };
 		F1E059302B21CF98004A63E2 /* AppColor .swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0592F2B21CF98004A63E2 /* AppColor .swift */; };
+		F1E059322B21DA08004A63E2 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		F19F30432B21CA1000B5758F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F1E0592F2B21CF98004A63E2 /* AppColor .swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppColor .swift"; sourceTree = "<group>"; };
+		F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				F19F300E2B21C3D700B5758F /* OnboardingList.swift */,
 				F19F30432B21CA1000B5758F /* HomeViewController.swift */,
 				F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */,
+				F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */,
 				F1E0592F2B21CF98004A63E2 /* AppColor .swift */,
 				F19F30032B21C0D300B5758F /* Assets.xcassets */,
 				F19F30052B21C0D300B5758F /* LaunchScreen.storyboard */,
@@ -193,6 +196,7 @@
 				F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */,
 				F19F300F2B21C3D700B5758F /* OnboardingList.swift in Sources */,
 				F19F2FFF2B21C0D100B5758F /* OnboardingViewController.swift in Sources */,
+				F1E059322B21DA08004A63E2 /* PrivacyViewController.swift in Sources */,
 				F19F2FFB2B21C0D100B5758F /* AppDelegate.swift in Sources */,
 				F19F2FFD2B21C0D100B5758F /* SceneDelegate.swift in Sources */,
 				F1E0592E2B21CE98004A63E2 /* SettingsViewController.swift in Sources */,
