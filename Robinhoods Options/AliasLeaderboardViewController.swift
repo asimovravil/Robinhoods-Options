@@ -13,6 +13,7 @@ class AliasLeaderboardViewController: UIViewController {
     let onboardingSkip = UIButton()
     let aliasleaderBackground = UIImageView()
     let buttonNewGame = UIButton()
+    let nameTeam = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +47,14 @@ class AliasLeaderboardViewController: UIViewController {
         buttonNewGame.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonNewGame)
         
+        nameTeam.text = "Friendship"
+        nameTeam.textColor = .black
+        nameTeam.numberOfLines = 0
+        nameTeam.textAlignment = .center
+        nameTeam.font = UIFont(name: "NotoSans-SemiBold", size: 32)
+        nameTeam.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nameTeam)
+        
         NSLayoutConstraint.activate([
             aliasleaderBackground.topAnchor.constraint(equalTo: view.topAnchor),
             aliasleaderBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -59,6 +68,9 @@ class AliasLeaderboardViewController: UIViewController {
             
             buttonNewGame.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             buttonNewGame.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            nameTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 220),
+            nameTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
     
