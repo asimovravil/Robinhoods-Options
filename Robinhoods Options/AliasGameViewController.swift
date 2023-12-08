@@ -220,6 +220,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
                 let aliasResultVC = AliasResultViewController(guessedCount: self.guessedCardsCount, skippedCount: self.words.count - self.guessedCardsCount)
                 aliasResultVC.words = self.words
                 aliasResultVC.isWordGuessed = self.wordsGuessed
+                aliasResultVC.teamName = teamNames[currentTeamIndex]
                 self.navigationController?.pushViewController(aliasResultVC, animated: true)
 
                 // Переход к следующей команде или завершение игры

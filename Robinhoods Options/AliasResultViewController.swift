@@ -31,6 +31,7 @@ class AliasResultViewController: UIViewController {
         
         amountGuessed.text = "\(guessedCount)"
         amountSkipped.text = "\(skippedCount)"
+        nameTeam.text = "\(teamName)"
     }
     
     var guessedCount: Int = 0 {
@@ -42,6 +43,12 @@ class AliasResultViewController: UIViewController {
     var skippedCount: Int = 0 {
         didSet {
             amountSkipped.text = "\(skippedCount)"
+        }
+    }
+    
+    var teamName: String = "" {
+        didSet {
+            nameTeam.text = teamName
         }
     }
     
