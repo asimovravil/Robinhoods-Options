@@ -31,6 +31,8 @@
 		F1E059382B21E4B6004A63E2 /* QuizListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059372B21E4B6004A63E2 /* QuizListViewController.swift */; };
 		F1E0593A2B22FBFF004A63E2 /* AliasTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */; };
 		F1E0593C2B22FD2A004A63E2 /* AliasTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */; };
+		F1E0593E2B233186004A63E2 /* AliasGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0593D2B233186004A63E2 /* AliasGameViewController.swift */; };
+		F1E059412B233395004A63E2 /* Shuffle in Frameworks */ = {isa = PBXBuildFile; productRef = F1E059402B233395004A63E2 /* Shuffle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,7 @@
 		F1E059372B21E4B6004A63E2 /* QuizListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListViewController.swift; sourceTree = "<group>"; };
 		F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTeamViewController.swift; sourceTree = "<group>"; };
 		F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTeamCell.swift; sourceTree = "<group>"; };
+		F1E0593D2B233186004A63E2 /* AliasGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasGameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E059412B233395004A63E2 /* Shuffle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +104,7 @@
 				F19F30432B21CA1000B5758F /* HomeViewController.swift */,
 				F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */,
 				F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */,
+				F1E0593D2B233186004A63E2 /* AliasGameViewController.swift */,
 				F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */,
 				F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */,
 				F1E059332B21DD93004A63E2 /* FAQViewController.swift */,
@@ -145,6 +150,9 @@
 			dependencies = (
 			);
 			name = "Robinhoods Options";
+			packageProductDependencies = (
+				F1E059402B233395004A63E2 /* Shuffle */,
+			);
 			productName = "Robinhoods Options";
 			productReference = F19F2FF72B21C0D100B5758F /* Robinhoods Options.app */;
 			productType = "com.apple.product-type.application";
@@ -173,6 +181,9 @@
 				Base,
 			);
 			mainGroup = F19F2FEE2B21C0D100B5758F;
+			packageReferences = (
+				F1E0593F2B233395004A63E2 /* XCRemoteSwiftPackageReference "Shuffle" */,
+			);
 			productRefGroup = F19F2FF82B21C0D100B5758F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -209,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1E0593A2B22FBFF004A63E2 /* AliasTeamViewController.swift in Sources */,
+				F1E0593E2B233186004A63E2 /* AliasGameViewController.swift in Sources */,
 				F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */,
 				F1E059382B21E4B6004A63E2 /* QuizListViewController.swift in Sources */,
 				F19F300F2B21C3D700B5758F /* OnboardingList.swift in Sources */,
@@ -433,6 +445,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F1E0593F2B233395004A63E2 /* XCRemoteSwiftPackageReference "Shuffle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-gallagher/Shuffle.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F1E059402B233395004A63E2 /* Shuffle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1E0593F2B233395004A63E2 /* XCRemoteSwiftPackageReference "Shuffle" */;
+			productName = Shuffle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F19F2FEF2B21C0D100B5758F /* Project object */;
 }
