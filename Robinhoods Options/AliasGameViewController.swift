@@ -10,12 +10,17 @@ import Shuffle
 
 class AliasGameViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
 
+    var guessedCardsCount = 0
+    var notGuessedCardsCount = 0
+    
     let titleGame = UILabel()
     var cardStack = SwipeCardStack()
     let subTitleGame = UILabel()
     let titleQuestion = UILabel()
     let imageSwipe = UIImageView()
     let titleWord = UILabel()
+    let buttonClose = UIButton()
+    let buttonCorrect = UIButton()
     
     let words = [
         "Apple", "Banana", "Cat", "Dog", "Elephant",
@@ -90,7 +95,18 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         titleWord.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleWord)
         
+        buttonClose.setImage(UIImage(named: "close"), for: .normal)
+        buttonClose.isHidden = true
+        buttonClose.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonClose)
         
+        buttonCorrect.setImage(UIImage(named: "correct"), for: .normal)
+        buttonCorrect.isHidden = true
+        buttonCorrect.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(buttonCorrect)
+        
+        buttonClose.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        buttonCorrect.addTarget(self, action: #selector(correctButtonTapped), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
             titleGame.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
@@ -113,6 +129,12 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             
             titleWord.centerXAnchor.constraint(equalTo: cardStack.centerXAnchor),
             titleWord.centerYAnchor.constraint(equalTo: cardStack.centerYAnchor),
+            
+            buttonClose.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            buttonClose.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -30),
+
+            buttonCorrect.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
+            buttonCorrect.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 30),
         ])
     }
     
@@ -151,10 +173,13 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
+        
         if index == 0 {
             imageSwipe.isHidden = true
             titleQuestion.isHidden = true
-            
+            subTitleGame.isHidden = true
+            buttonClose.isHidden = false
+            buttonCorrect.isHidden = false
             titleWord.isHidden = false
         }
         
@@ -164,7 +189,15 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             titleWord.text = "No more words"
         }
         
-        print("Card swiped")
+        if direction == .left {
+            guessedCardsCount -= 1
+            print("Swiped left, guessedCardsCount decreased to \(guessedCardsCount)")
+        }
+        
+        else if direction == .right {
+            guessedCardsCount += 1
+            print("Swiped right, guessedCardsCount increased to \(guessedCardsCount)")
+        }
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection) {
@@ -173,5 +206,15 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     
     func didSwipeAllCards(_ cardStack: SwipeCardStack) {
         print("All cards swiped")
+    }
+    
+    @objc private func closeButtonTapped() {
+        guessedCardsCount -= 1
+        cardStack.swipe(.left, animated: true)
+    }
+    
+    @objc private func correctButtonTapped() {
+        guessedCardsCount += 1
+        cardStack.swipe(.right, animated: true)
     }
 }
