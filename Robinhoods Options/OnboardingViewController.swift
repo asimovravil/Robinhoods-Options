@@ -139,7 +139,9 @@ class OnboardingViewController: UIViewController {
     }
 
     @objc private func skipButtonTapped() {
-        print("good")
+        let homeVC = HomeViewController()
+        homeVC.navigationItem.hidesBackButton = true
+        self.navigationController?.pushViewController(homeVC, animated: true)
     }
 }
 

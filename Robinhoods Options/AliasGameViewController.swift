@@ -228,8 +228,8 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
                     self.restartGameForNextTeam()
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
-                        let homeVC = HomeViewController()
-                        self.navigationController?.pushViewController(homeVC, animated: true)
+                        let resultVC = AliasLeaderboardViewController()
+                        self.navigationController?.pushViewController(resultVC, animated: true)
                     }
                 }
             }
