@@ -16,6 +16,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     var teamNames: [String] = []
     var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
     
+    var currentTeamIndex = 0
     let titleGame = UILabel()
     var cardStack = SwipeCardStack()
     let subTitleGame = UILabel()
@@ -56,6 +57,11 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         if let teamName = teamNames.first {
             titleGame.text = "\(teamName)"
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func setupUI() {
@@ -203,20 +209,56 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     
     private func startTimer() {
         countdownTimer?.invalidate()
+        remainingSeconds = 60 // Восстановление времени для нового раунда
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.remainingSeconds > 0 {
                 self.remainingSeconds -= 1
                 self.updateTimerLabel()
             } else {
-                let aliasResultVC = AliasResultViewController(guessedCount: guessedCardsCount, skippedCount: words.count - guessedCardsCount)
+                self.countdownTimer?.invalidate()
+                let aliasResultVC = AliasResultViewController(guessedCount: self.guessedCardsCount, skippedCount: self.words.count - self.guessedCardsCount)
                 aliasResultVC.words = self.words
                 aliasResultVC.isWordGuessed = self.wordsGuessed
-                navigationController?.pushViewController(aliasResultVC, animated: true)
-                self.countdownTimer?.invalidate()
+                self.navigationController?.pushViewController(aliasResultVC, animated: true)
+
+                // Переход к следующей команде или завершение игры
+                if self.currentTeamIndex < self.teamNames.count - 1 {
+                    self.currentTeamIndex += 1
+                    self.restartGameForNextTeam()
+                } else {
+                    let homeVC = HomeViewController()
+                    self.navigationController?.pushViewController(homeVC, animated: true)
+                }
             }
         }
     }
+
+    
+    func restartGameForNextTeam() {
+        self.remainingSeconds = 60
+        self.guessedCardsCount = 0
+        self.wordsGuessed = Array(repeating: false, count: 50)
+
+        if currentTeamIndex < teamNames.count {
+            titleGame.text = teamNames[currentTeamIndex]
+        }
+
+        cardStack.reloadData()
+
+        titleWord.text = words.first
+        titleAmount.text = "1/\(words.count)"
+        imageSwipe.isHidden = false
+        titleQuestion.isHidden = false
+        subTitleGame.isHidden = false
+        buttonClose.isHidden = true
+        buttonCorrect.isHidden = true
+        titleWord.isHidden = true
+        titleAmount.isHidden = true
+
+        self.startTimer()
+    }
+
     
     // MARK: SwipeCardStackDataSource
     
@@ -246,29 +288,27 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             titleWord.isHidden = false
             titleAmount.isHidden = false
         }
-        
-        // Обновление отображаемого слова
+
         if index < words.count - 1 {
-            titleWord.text = words[index + 1] // Переход к следующему слову
+            titleWord.text = words[index + 1]
         } else {
             titleWord.text = "No more words"
         }
 
-        // Обновление количества
         let currentAmount = index + 1
         titleAmount.text = "\(currentAmount)/\(words.count)"
-        
-        // Изменение счётчика угаданных слов
+
         if direction == .right {
             guessedCardsCount += 1
             wordsGuessed[index] = true
         } else if direction == .left {
-            guessedCardsCount -= 1
+            guessedCardsCount = max(guessedCardsCount - 1, 0)  // Убедитесь, что счетчик не уйдет в минус
             wordsGuessed[index] = false
         }
 
         print("Guessed Cards Count: \(guessedCardsCount)")
     }
+
     
     func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection) {
         print("Card undo")
@@ -279,12 +319,10 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     }
     
     @objc private func closeButtonTapped() {
-        guessedCardsCount -= 1
         cardStack.swipe(.left, animated: true)
     }
     
     @objc private func correctButtonTapped() {
-        guessedCardsCount += 1
         cardStack.swipe(.right, animated: true)
     }
 }

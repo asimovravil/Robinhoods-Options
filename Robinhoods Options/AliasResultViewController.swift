@@ -134,6 +134,7 @@ class AliasResultViewController: UIViewController {
         view.addSubview(amountSkipped)
         
         buttonNextTeam.setImage(UIImage(named: "nextTeam"), for: .normal)
+        buttonNextTeam.addTarget(self, action: #selector(buttonNextTeamTapped), for: .touchUpInside)
         buttonNextTeam.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonNextTeam)
         
@@ -175,6 +176,18 @@ class AliasResultViewController: UIViewController {
             tableViewAliasResult.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewAliasResult.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    @objc private func buttonNextTeamTapped() {
+        if let navigationController = navigationController {
+            for controller in navigationController.viewControllers {
+                if let gameVC = controller as? AliasGameViewController {
+                    navigationController.popToViewController(gameVC, animated: true)
+                    gameVC.restartGameForNextTeam()
+                    break
+                }
+            }
+        }
     }
 }
 
