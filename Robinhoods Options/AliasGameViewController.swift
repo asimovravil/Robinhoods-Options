@@ -201,23 +201,19 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     }
     
     private func startTimer() {
-        countdownTimer?.invalidate() // Отменяем предыдущий таймер, если он уже был запущен
+        countdownTimer?.invalidate()
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.remainingSeconds > 0 {
                 self.remainingSeconds -= 1
                 self.updateTimerLabel()
             } else {
-                // Таймер достиг нуля, выполните здесь необходимые действия
-                self.countdownTimer?.invalidate() // Отменяем таймер
-                self.printMessage(message: "Время истекло!")
+                let aliasResultVC = AliasResultViewController()
+                aliasResultVC.navigationItem.hidesBackButton = true
+                self.navigationController?.pushViewController(aliasResultVC, animated: true)
+                self.countdownTimer?.invalidate()
             }
         }
-    }
-
-    // Просто выводит сообщение в консоль
-    func printMessage(message: String) {
-        print(message)
     }
     
     // MARK: SwipeCardStackDataSource

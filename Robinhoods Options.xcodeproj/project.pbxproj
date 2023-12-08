@@ -33,6 +33,7 @@
 		F1E0593C2B22FD2A004A63E2 /* AliasTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */; };
 		F1E0593E2B233186004A63E2 /* AliasGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0593D2B233186004A63E2 /* AliasGameViewController.swift */; };
 		F1E059412B233395004A63E2 /* Shuffle in Frameworks */ = {isa = PBXBuildFile; productRef = F1E059402B233395004A63E2 /* Shuffle */; };
+		F1E059432B2345A3004A63E2 /* AliasResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059422B2345A3004A63E2 /* AliasResultViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTeamViewController.swift; sourceTree = "<group>"; };
 		F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTeamCell.swift; sourceTree = "<group>"; };
 		F1E0593D2B233186004A63E2 /* AliasGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasGameViewController.swift; sourceTree = "<group>"; };
+		F1E059422B2345A3004A63E2 /* AliasResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasResultViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */,
 				F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */,
 				F1E0593D2B233186004A63E2 /* AliasGameViewController.swift */,
+				F1E059422B2345A3004A63E2 /* AliasResultViewController.swift */,
 				F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */,
 				F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */,
 				F1E059332B21DD93004A63E2 /* FAQViewController.swift */,
@@ -224,6 +227,7 @@
 				F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */,
 				F1E059382B21E4B6004A63E2 /* QuizListViewController.swift in Sources */,
 				F19F300F2B21C3D700B5758F /* OnboardingList.swift in Sources */,
+				F1E059432B2345A3004A63E2 /* AliasResultViewController.swift in Sources */,
 				F19F2FFF2B21C0D100B5758F /* OnboardingViewController.swift in Sources */,
 				F1E059362B21E4AF004A63E2 /* AliasListViewController.swift in Sources */,
 				F1E059322B21DA08004A63E2 /* PrivacyViewController.swift in Sources */,
