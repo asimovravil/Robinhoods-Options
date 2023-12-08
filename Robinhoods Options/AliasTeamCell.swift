@@ -7,10 +7,14 @@
 
 import UIKit
 
+protocol AliasTeamCellDelegate: AnyObject {
+    func didChangeText(newText: String, in cell: AliasTeamCell)
+}
+
 class AliasTeamCell: UITableViewCell {
 
     let teamPlaceHolder = UITextField()
-    let aliasPlus = UIButton()
+    weak var delegate: AliasTeamCellDelegate?
     
     static let id = String(describing: AliasTeamCell.self)
     
@@ -37,26 +41,19 @@ class AliasTeamCell: UITableViewCell {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: teamPlaceHolder.frame.height))
         teamPlaceHolder.leftView = paddingView
         teamPlaceHolder.leftViewMode = .always
-        
+        teamPlaceHolder.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
         teamPlaceHolder.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(teamPlaceHolder)
-        
-        aliasPlus.setImage(UIImage(named: "plus"), for: .normal)
-        aliasPlus.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(aliasPlus)
         
         NSLayoutConstraint.activate([
             teamPlaceHolder.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
             teamPlaceHolder.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             teamPlaceHolder.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             teamPlaceHolder.heightAnchor.constraint(equalToConstant: 64),
-            
-            aliasPlus.topAnchor.constraint(equalTo: teamPlaceHolder.bottomAnchor, constant: 24),
-            aliasPlus.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
         ])
     }
     
-    func showAliasPlusButton(_ show: Bool) {
-        aliasPlus.isHidden = !show
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        delegate?.didChangeText(newText: textField.text ?? "", in: self)
     }
 }
