@@ -11,6 +11,8 @@ class AliasResultViewController: UIViewController {
 
     let resultBackground = UIImageView()
     let cardTeam = UIView()
+    let nameTeam = UILabel()
+    let titleTeam = UILabel()
     let titleGuessed = UILabel()
     let amountGuessed = UILabel()
     let titleSkipped = UILabel()
@@ -40,6 +42,22 @@ class AliasResultViewController: UIViewController {
         cardTeam.backgroundColor = .white
         cardTeam.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(cardTeam)
+        
+        nameTeam.text = "To the moooon"
+        nameTeam.textColor = .black
+        nameTeam.numberOfLines = 0
+        nameTeam.textAlignment = .center
+        nameTeam.font = UIFont(name: "NotoSans-SemiBold", size: 32)
+        nameTeam.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nameTeam)
+        
+        titleTeam.text = "Team"
+        titleTeam.textColor = .black
+        titleTeam.numberOfLines = 0
+        titleTeam.textAlignment = .center
+        titleTeam.font = UIFont(name: "NotoSans-Medium", size: 12)
+        titleTeam.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleTeam)
         
         titleGuessed.text = "Guessed"
         titleGuessed.textColor = .black
@@ -90,6 +108,12 @@ class AliasResultViewController: UIViewController {
             cardTeam.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
             cardTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             cardTeam.heightAnchor.constraint(equalToConstant: 96),
+            
+            nameTeam.topAnchor.constraint(equalTo: cardTeam.topAnchor, constant: 16),
+            nameTeam.centerXAnchor.constraint(equalTo: cardTeam.centerXAnchor),
+            
+            titleTeam.bottomAnchor.constraint(equalTo: cardTeam.bottomAnchor, constant: -16),
+            titleTeam.centerXAnchor.constraint(equalTo: cardTeam.centerXAnchor),
             
             titleGuessed.topAnchor.constraint(equalTo: cardTeam.bottomAnchor, constant: 122),
             titleGuessed.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
