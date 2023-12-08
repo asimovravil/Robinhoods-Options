@@ -163,14 +163,25 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         titleLabel.textColor = .black
         titleLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
         navigationItem.titleView = titleLabel
-        
+
+        let countdownStackView = UIStackView()
+        countdownStackView.axis = .horizontal
+        countdownStackView.alignment = .center
+        countdownStackView.spacing = 4 
+
         countdownLabel = UILabel()
-        countdownLabel.text = "60s"
+        countdownLabel.text = "60"
         countdownLabel.textColor = .black
         countdownLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
-        let countdownBarItem = UIBarButtonItem(customView: countdownLabel)
-        navigationItem.rightBarButtonItem = countdownBarItem
 
+        let clockImageView = UIImageView(image: UIImage(named: "clockBar"))
+        clockImageView.contentMode = .scaleAspectFit
+
+        countdownStackView.addArrangedSubview(clockImageView)
+        countdownStackView.addArrangedSubview(countdownLabel)
+
+        let countdownBarItem = UIBarButtonItem(customView: countdownStackView)
+        navigationItem.rightBarButtonItem = countdownBarItem
 
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
@@ -178,6 +189,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
     }
+
     
     private func updateTimerLabel() {
         countdownLabel.text = "\(remainingSeconds)s"
