@@ -9,6 +9,8 @@ import UIKit
 
 class AliasResultViewController: UIViewController {
 
+    let tableViewAliasResult = UITableView(frame: .zero, style: .plain)
+    
     let resultBackground = UIImageView()
     let cardTeam = UIView()
     let nameTeam = UILabel()
@@ -38,6 +40,17 @@ class AliasResultViewController: UIViewController {
         resultBackground.contentMode = .scaleAspectFill
         resultBackground.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(resultBackground)
+        
+        tableViewAliasResult.register(AliasResultCell.self, forCellReuseIdentifier: AliasResultCell.id)
+        tableViewAliasResult.dataSource = self
+        tableViewAliasResult.delegate = self
+        tableViewAliasResult.showsVerticalScrollIndicator = false
+        tableViewAliasResult.isUserInteractionEnabled = true
+        tableViewAliasResult.backgroundColor = .clear
+        tableViewAliasResult.separatorStyle = .none
+        tableViewAliasResult.rowHeight = 72
+        tableViewAliasResult.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableViewAliasResult)
         
         cardTeam.backgroundColor = .white
         cardTeam.translatesAutoresizingMaskIntoConstraints = false
@@ -129,6 +142,30 @@ class AliasResultViewController: UIViewController {
             
             buttonNextTeam.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             buttonNextTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            tableViewAliasResult.topAnchor.constraint(equalTo: titleSkipped.bottomAnchor, constant: 24),
+            tableViewAliasResult.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableViewAliasResult.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableViewAliasResult.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+}
+
+extension AliasResultViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: AliasResultCell.id, for: indexPath) as? AliasResultCell else {
+            fatalError("Could not cast to AliasResultCell")
+        }
+        cell.selectionStyle = .none
+        cell.backgroundColor = .clear
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

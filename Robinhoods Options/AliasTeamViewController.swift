@@ -78,7 +78,6 @@ class AliasTeamViewController: UIViewController {
     }
     
     @objc private func aliasStartTapped() {
-        // Передайте массив teamNames на AliasGameViewController
         let aliasGameViewController = AliasGameViewController()
         aliasGameViewController.teamNames = teamNames
         navigationController?.pushViewController(aliasGameViewController, animated: true)
