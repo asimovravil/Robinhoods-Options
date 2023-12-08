@@ -171,7 +171,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 
         let titleLabel = UILabel()
-        titleLabel.text = "Round 1/3"
+        titleLabel.text = "Game"
         titleLabel.textColor = .black
         titleLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
         navigationItem.titleView = titleLabel
