@@ -31,6 +31,7 @@ class HomeViewController: UIViewController {
         view.addSubview(homeBackground)
         
         homeAlias.setImage(UIImage(named: "alias"), for: .normal)
+        homeAlias.addTarget(self, action: #selector(homeAliasMethod), for: .touchUpInside)
         homeAlias.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeAlias)
         
@@ -76,6 +77,11 @@ class HomeViewController: UIViewController {
                 homeSettings.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             ])
         }
+    }
+    
+    @objc func homeAliasMethod() {
+        let aliasVC = AliasTeamViewController()
+        self.navigationController?.pushViewController(aliasVC, animated: true)
     }
     
     @objc func homeFAQMethod() {

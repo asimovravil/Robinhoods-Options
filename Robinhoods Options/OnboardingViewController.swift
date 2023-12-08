@@ -23,7 +23,7 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
         updateContentForPage(sectionPageList)
         setupUI()
-        setupNavigationBar()
+        setupNavBar()
     }
     
     func setupUI() {
@@ -132,7 +132,7 @@ class OnboardingViewController: UIViewController {
         onboardingPage.currentPage = sectionPageList
     }
     
-    private func setupNavigationBar() {
+    private func setupNavBar() {
         let sectionSkipBarButton = UIBarButtonItem(customView: onboardingSkip)
         navigationItem.leftBarButtonItem = sectionSkipBarButton
         onboardingSkip.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)

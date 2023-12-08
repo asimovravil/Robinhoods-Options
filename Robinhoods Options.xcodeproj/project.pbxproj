@@ -29,6 +29,8 @@
 		F1E059342B21DD93004A63E2 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059332B21DD93004A63E2 /* FAQViewController.swift */; };
 		F1E059362B21E4AF004A63E2 /* AliasListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059352B21E4AF004A63E2 /* AliasListViewController.swift */; };
 		F1E059382B21E4B6004A63E2 /* QuizListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059372B21E4B6004A63E2 /* QuizListViewController.swift */; };
+		F1E0593A2B22FBFF004A63E2 /* AliasTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */; };
+		F1E0593C2B22FD2A004A63E2 /* AliasTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		F1E059332B21DD93004A63E2 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		F1E059352B21E4AF004A63E2 /* AliasListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasListViewController.swift; sourceTree = "<group>"; };
 		F1E059372B21E4B6004A63E2 /* QuizListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizListViewController.swift; sourceTree = "<group>"; };
+		F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTeamViewController.swift; sourceTree = "<group>"; };
+		F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasTeamCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,8 @@
 				F19F2FFE2B21C0D100B5758F /* OnboardingViewController.swift */,
 				F19F300E2B21C3D700B5758F /* OnboardingList.swift */,
 				F19F30432B21CA1000B5758F /* HomeViewController.swift */,
+				F1E059392B22FBFF004A63E2 /* AliasTeamViewController.swift */,
+				F1E0593B2B22FD2A004A63E2 /* AliasTeamCell.swift */,
 				F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */,
 				F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */,
 				F1E059332B21DD93004A63E2 /* FAQViewController.swift */,
@@ -202,12 +208,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E0593A2B22FBFF004A63E2 /* AliasTeamViewController.swift in Sources */,
 				F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */,
 				F1E059382B21E4B6004A63E2 /* QuizListViewController.swift in Sources */,
 				F19F300F2B21C3D700B5758F /* OnboardingList.swift in Sources */,
 				F19F2FFF2B21C0D100B5758F /* OnboardingViewController.swift in Sources */,
 				F1E059362B21E4AF004A63E2 /* AliasListViewController.swift in Sources */,
 				F1E059322B21DA08004A63E2 /* PrivacyViewController.swift in Sources */,
+				F1E0593C2B22FD2A004A63E2 /* AliasTeamCell.swift in Sources */,
 				F19F2FFB2B21C0D100B5758F /* AppDelegate.swift in Sources */,
 				F19F2FFD2B21C0D100B5758F /* SceneDelegate.swift in Sources */,
 				F1E059342B21DD93004A63E2 /* FAQViewController.swift in Sources */,
