@@ -10,7 +10,9 @@ import UIKit
 class AliasResultViewController: UIViewController {
 
     let tableViewAliasResult = UITableView(frame: .zero, style: .plain)
-    
+    var words: [String] = []
+    var isWordGuessed: [Bool] = []
+
     let resultBackground = UIImageView()
     let cardTeam = UIView()
     let nameTeam = UILabel()
@@ -26,12 +28,37 @@ class AliasResultViewController: UIViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: false)
         setupUI()
+        
+        amountGuessed.text = "\(guessedCount)"
+        amountSkipped.text = "\(skippedCount)"
+    }
+    
+    var guessedCount: Int = 0 {
+        didSet {
+            amountGuessed.text = "\(guessedCount)"
+        }
+    }
+
+    var skippedCount: Int = 0 {
+        didSet {
+            amountSkipped.text = "\(skippedCount)"
+        }
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         cardTeam.layer.cornerRadius = 30
+    }
+    
+    init(guessedCount: Int, skippedCount: Int) {
+        super.init(nibName: nil, bundle: nil)
+        self.guessedCount = guessedCount
+        self.skippedCount = skippedCount
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupUI() {
@@ -80,7 +107,7 @@ class AliasResultViewController: UIViewController {
         titleGuessed.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleGuessed)
         
-        amountGuessed.text = "10"
+        amountGuessed.text = "0"
         amountGuessed.textColor = .black
         amountGuessed.numberOfLines = 0
         amountGuessed.textAlignment = .center
@@ -97,7 +124,7 @@ class AliasResultViewController: UIViewController {
         titleSkipped.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleSkipped)
         
-        amountSkipped.text = "5"
+        amountSkipped.text = "0"
         amountSkipped.textColor = .black
         amountSkipped.numberOfLines = 0
         amountSkipped.alpha = 0.50
@@ -153,7 +180,7 @@ class AliasResultViewController: UIViewController {
 
 extension AliasResultViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 50
+        return words.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -162,6 +189,14 @@ extension AliasResultViewController: UITableViewDataSource, UITableViewDelegate 
         }
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
+        let word = words[indexPath.row]
+        cell.nameWord.text = word
+
+        if isWordGuessed[indexPath.row] {
+            cell.imageWord.image = UIImage(named: "correct")
+        } else {
+            cell.imageWord.image = UIImage(named: "close")
+        }
         return cell
     }
     

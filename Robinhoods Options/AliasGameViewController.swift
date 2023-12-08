@@ -14,6 +14,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     private var countdownTimer: Timer?
     private var remainingSeconds: Int = 60
     var teamNames: [String] = []
+    var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
     
     let titleGame = UILabel()
     var cardStack = SwipeCardStack()
@@ -208,9 +209,10 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
                 self.remainingSeconds -= 1
                 self.updateTimerLabel()
             } else {
-                let aliasResultVC = AliasResultViewController()
-                aliasResultVC.navigationItem.hidesBackButton = true
-                self.navigationController?.pushViewController(aliasResultVC, animated: true)
+                let aliasResultVC = AliasResultViewController(guessedCount: guessedCardsCount, skippedCount: words.count - guessedCardsCount)
+                aliasResultVC.words = self.words
+                aliasResultVC.isWordGuessed = self.wordsGuessed
+                navigationController?.pushViewController(aliasResultVC, animated: true)
                 self.countdownTimer?.invalidate()
             }
         }
@@ -235,7 +237,6 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
-        
         if index == 0 {
             imageSwipe.isHidden = true
             titleQuestion.isHidden = true
@@ -244,36 +245,30 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             buttonCorrect.isHidden = false
             titleWord.isHidden = false
             titleAmount.isHidden = false
-            
-            if direction == .left {
-                guessedCardsCount += 1
-            }
-            
-            if direction == .right {
-                guessedCardsCount -= 1
-            }
         }
         
-        if index < words.count {
-            titleWord.text = words[index]
+        // Обновление отображаемого слова
+        if index < words.count - 1 {
+            titleWord.text = words[index + 1] // Переход к следующему слову
         } else {
             titleWord.text = "No more words"
         }
-        
+
+        // Обновление количества
         let currentAmount = index + 1
         titleAmount.text = "\(currentAmount)/\(words.count)"
         
-        if direction == .left {
-            guessedCardsCount -= 1
-            print("Swiped left, guessedCardsCount decreased to \(guessedCardsCount)")
-        }
-        
-        else if direction == .right {
+        // Изменение счётчика угаданных слов
+        if direction == .right {
             guessedCardsCount += 1
-            print("Swiped right, guessedCardsCount increased to \(guessedCardsCount)")
+            wordsGuessed[index] = true
+        } else if direction == .left {
+            guessedCardsCount -= 1
+            wordsGuessed[index] = false
         }
-    }
 
+        print("Guessed Cards Count: \(guessedCardsCount)")
+    }
     
     func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection) {
         print("Card undo")
