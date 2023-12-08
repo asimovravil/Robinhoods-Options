@@ -11,16 +11,19 @@ import Shuffle
 class AliasGameViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
 
     var guessedCardsCount = 0
-    var notGuessedCardsCount = 0
+    private var countdownTimer: Timer?
+    private var remainingSeconds: Int = 60
     
     let titleGame = UILabel()
     var cardStack = SwipeCardStack()
     let subTitleGame = UILabel()
     let titleQuestion = UILabel()
+    let titleAmount = UILabel()
     let imageSwipe = UIImageView()
     let titleWord = UILabel()
     let buttonClose = UIButton()
     let buttonCorrect = UIButton()
+    private var countdownLabel: UILabel!
     
     let words = [
         "Apple", "Banana", "Cat", "Dog", "Elephant",
@@ -46,6 +49,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         view.backgroundColor = AppColor.backgroundLightGray.uiColor
         setupUI()
         setupNavBar()
+        startTimer()
     }
     
     private func setupUI() {
@@ -79,6 +83,16 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         titleQuestion.font = UIFont(name: "NotoSans-SemiBold", size: 16)
         titleQuestion.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleQuestion)
+        
+        titleAmount.text = "1/50"
+        titleAmount.textColor = .black
+        titleAmount.alpha = 0.50
+        titleAmount.numberOfLines = 0
+        titleAmount.isHidden = true
+        titleAmount.textAlignment = .center
+        titleAmount.font = UIFont(name: "NotoSans-SemiBold", size: 16)
+        titleAmount.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleAmount)
         
         imageSwipe.image = UIImage(named: "swipeCard")
         imageSwipe.layer.masksToBounds = true
@@ -124,6 +138,9 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             titleQuestion.topAnchor.constraint(equalTo: cardStack.topAnchor, constant: 24),
             titleQuestion.centerXAnchor.constraint(equalTo: cardStack.centerXAnchor),
             
+            titleAmount.topAnchor.constraint(equalTo: cardStack.topAnchor, constant: 24),
+            titleAmount.centerXAnchor.constraint(equalTo: cardStack.centerXAnchor),
+            
             imageSwipe.centerXAnchor.constraint(equalTo: cardStack.centerXAnchor),
             imageSwipe.centerYAnchor.constraint(equalTo: cardStack.centerYAnchor),
             
@@ -146,12 +163,44 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         titleLabel.textColor = .black
         titleLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
         navigationItem.titleView = titleLabel
+        
+        countdownLabel = UILabel()
+        countdownLabel.text = "60s"
+        countdownLabel.textColor = .black
+        countdownLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
+        let countdownBarItem = UIBarButtonItem(customView: countdownLabel)
+        navigationItem.rightBarButtonItem = countdownBarItem
+
 
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundImage = UIImage(named: "navbar")
         navigationController?.navigationBar.standardAppearance = navBarAppearance
         navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+    }
+    
+    private func updateTimerLabel() {
+        countdownLabel.text = "\(remainingSeconds)s"
+    }
+    
+    private func startTimer() {
+        countdownTimer?.invalidate() // Отменяем предыдущий таймер, если он уже был запущен
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            if self.remainingSeconds > 0 {
+                self.remainingSeconds -= 1
+                self.updateTimerLabel()
+            } else {
+                // Таймер достиг нуля, выполните здесь необходимые действия
+                self.countdownTimer?.invalidate() // Отменяем таймер
+                self.printMessage(message: "Время истекло!")
+            }
+        }
+    }
+
+    // Просто выводит сообщение в консоль
+    func printMessage(message: String) {
+        print(message)
     }
     
     // MARK: SwipeCardStackDataSource
@@ -181,6 +230,15 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             buttonClose.isHidden = false
             buttonCorrect.isHidden = false
             titleWord.isHidden = false
+            titleAmount.isHidden = false
+            
+            if direction == .left {
+                guessedCardsCount += 1
+            }
+            
+            if direction == .right {
+                guessedCardsCount -= 1
+            }
         }
         
         if index < words.count {
@@ -188,6 +246,9 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         } else {
             titleWord.text = "No more words"
         }
+        
+        let currentAmount = index + 1
+        titleAmount.text = "\(currentAmount)/\(words.count)"
         
         if direction == .left {
             guessedCardsCount -= 1
@@ -199,6 +260,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             print("Swiped right, guessedCardsCount increased to \(guessedCardsCount)")
         }
     }
+
     
     func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection) {
         print("Card undo")
