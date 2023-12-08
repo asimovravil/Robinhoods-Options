@@ -209,7 +209,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     
     private func startTimer() {
         countdownTimer?.invalidate()
-        remainingSeconds = 60 // Восстановление времени для нового раунда
+        remainingSeconds = 60 
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.remainingSeconds > 0 {
@@ -223,19 +223,19 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
                 aliasResultVC.teamName = teamNames[currentTeamIndex]
                 self.navigationController?.pushViewController(aliasResultVC, animated: true)
 
-                // Переход к следующей команде или завершение игры
                 if self.currentTeamIndex < self.teamNames.count - 1 {
                     self.currentTeamIndex += 1
                     self.restartGameForNextTeam()
                 } else {
-                    let homeVC = HomeViewController()
-                    self.navigationController?.pushViewController(homeVC, animated: true)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                        let homeVC = HomeViewController()
+                        self.navigationController?.pushViewController(homeVC, animated: true)
+                    }
                 }
             }
         }
     }
 
-    
     func restartGameForNextTeam() {
         self.remainingSeconds = 60
         self.guessedCardsCount = 0
