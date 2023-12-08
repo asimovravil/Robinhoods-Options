@@ -10,6 +10,7 @@ import UIKit
 class AliasTeamViewController: UIViewController {
 
     var numberOfPlayers = 2
+    var teamNames: [String] = []
     
     let tableViewAliasTeam = UITableView(frame: .zero, style: .plain)
     let aliasStart = UIButton()
@@ -44,6 +45,7 @@ class AliasTeamViewController: UIViewController {
         
         aliasStart.setImage(UIImage(named: "startAlias"), for: .normal)
         aliasStart.isEnabled = false
+        aliasStart.addTarget(self, action: #selector(aliasStartTapped), for: .touchUpInside)
         aliasStart.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(aliasStart)
         
@@ -73,6 +75,13 @@ class AliasTeamViewController: UIViewController {
                 aliasStart.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             ])
         }
+    }
+    
+    @objc private func aliasStartTapped() {
+        // Передайте массив teamNames на AliasGameViewController
+        let aliasGameViewController = AliasGameViewController()
+        aliasGameViewController.teamNames = teamNames
+        navigationController?.pushViewController(aliasGameViewController, animated: true)
     }
     
     private func setupNavBar() {
@@ -105,6 +114,12 @@ extension AliasTeamViewController: UITableViewDataSource, UITableViewDelegate, A
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
         cell.teamPlaceHolder.placeholder = "Team \(indexPath.row + 1)"
+        
+        if indexPath.row < teamNames.count {
+            cell.teamPlaceHolder.text = teamNames[indexPath.row]
+        } else {
+            cell.teamPlaceHolder.text = ""
+        }
         return cell
     }
     
@@ -119,9 +134,17 @@ extension AliasTeamViewController: UITableViewDataSource, UITableViewDelegate, A
     
     func didChangeText(newText: String, in cell: AliasTeamCell) {
         if let indexPath = tableViewAliasTeam.indexPath(for: cell) {
+            // Проверьте, что indexPath.row находится в пределах допустимого диапазона
+            if indexPath.row < teamNames.count {
+                teamNames[indexPath.row] = newText // Обновите данные в массиве teamNames
+            } else {
+                // Если индекс выходит за пределы текущей длины, добавьте новый элемент в массив
+                teamNames.append(newText)
+            }
         }
         validateStartButton()
     }
+
     
     private func validateStartButton() {
         var allFieldsValid = true

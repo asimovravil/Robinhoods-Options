@@ -13,6 +13,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     var guessedCardsCount = 0
     private var countdownTimer: Timer?
     private var remainingSeconds: Int = 60
+    var teamNames: [String] = []
     
     let titleGame = UILabel()
     var cardStack = SwipeCardStack()
@@ -50,6 +51,10 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         setupUI()
         setupNavBar()
         startTimer()
+        
+        if let teamName = teamNames.first {
+            titleGame.text = "\(teamName)"
+        }
     }
     
     private func setupUI() {
@@ -167,7 +172,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         let countdownStackView = UIStackView()
         countdownStackView.axis = .horizontal
         countdownStackView.alignment = .center
-        countdownStackView.spacing = 4 
+        countdownStackView.spacing = 4
 
         countdownLabel = UILabel()
         countdownLabel.text = "60"
