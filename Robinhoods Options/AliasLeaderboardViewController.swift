@@ -15,8 +15,8 @@ class AliasLeaderboardViewController: UIViewController {
     let buttonNewGame = UIButton()
     let nameTeam = UILabel()
     
-    var teamNames: [String] = []
-    
+    var teamNames: [(name: String, guessedCount: Int)] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -100,8 +100,10 @@ extension AliasLeaderboardViewController: UITableViewDataSource, UITableViewDele
         }
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
+        let teamInfo = teamNames[indexPath.row]
+        cell.nameWord.text = teamInfo.name
+        cell.guessedCount = teamInfo.guessedCount
         cell.placeWord.text = "\(indexPath.row + 1)"
-        cell.nameWord.text = teamNames[indexPath.row]
         return cell
     }
     

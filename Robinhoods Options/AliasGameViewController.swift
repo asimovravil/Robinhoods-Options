@@ -13,7 +13,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     var guessedCardsCount = 0
     private var countdownTimer: Timer?
     private var remainingSeconds: Int = 60
-    var teamNames: [String] = []
+    var teamNames: [(name: String, guessedCount: Int)] = []
     var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
     
     var currentTeamIndex = 0
@@ -54,8 +54,8 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         setupNavBar()
         startTimer()
         
-        if let teamName = teamNames.first {
-            titleGame.text = "\(teamName)"
+        if let teamName = teamNames.first?.name {
+            titleGame.text = teamName
         }
     }
     
@@ -220,7 +220,10 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
                 let aliasResultVC = AliasResultViewController(guessedCount: self.guessedCardsCount, skippedCount: self.words.count - self.guessedCardsCount)
                 aliasResultVC.words = self.words
                 aliasResultVC.isWordGuessed = self.wordsGuessed
-                aliasResultVC.teamName = teamNames[currentTeamIndex]
+                if currentTeamIndex < teamNames.count {
+                    aliasResultVC.teamName = teamNames[currentTeamIndex].name
+                    teamNames[currentTeamIndex].guessedCount = self.guessedCardsCount
+                }
                 self.navigationController?.pushViewController(aliasResultVC, animated: true)
 
                 if self.currentTeamIndex < self.teamNames.count - 1 {
@@ -243,7 +246,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         self.wordsGuessed = Array(repeating: false, count: 50)
 
         if currentTeamIndex < teamNames.count {
-            titleGame.text = teamNames[currentTeamIndex]
+            titleGame.text = teamNames[currentTeamIndex].name
         }
 
         cardStack.reloadData()

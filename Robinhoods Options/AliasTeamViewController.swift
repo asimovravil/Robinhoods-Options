@@ -79,7 +79,7 @@ class AliasTeamViewController: UIViewController {
     
     @objc private func aliasStartTapped() {
         let aliasGameViewController = AliasGameViewController()
-        aliasGameViewController.teamNames = teamNames
+        aliasGameViewController.teamNames = teamNames.map { ($0, 0) }
         navigationController?.pushViewController(aliasGameViewController, animated: true)
     }
     

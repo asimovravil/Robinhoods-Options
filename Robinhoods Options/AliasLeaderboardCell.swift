@@ -26,6 +26,12 @@ class AliasLeaderboardCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var guessedCount: Int = 0 {
+        didSet {
+            amountWord.text = "\(guessedCount)"
+        }
+    }
+    
     private func setupUI() {
         cardWord.backgroundColor = .white
         cardWord.layer.cornerRadius = 22
