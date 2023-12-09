@@ -282,7 +282,6 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
             arrowImageView3.widthAnchor.constraint(equalToConstant: 24),
             arrowImageView3.heightAnchor.constraint(equalToConstant: 24),
             
-            cardStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
             cardStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 47),
             cardStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
             cardStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -308,18 +307,33 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
             buttonFirstAnswer.bottomAnchor.constraint(equalTo: buttonSecondAnswer.topAnchor, constant: -16),
             buttonFirstAnswer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             buttonFirstAnswer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            buttonFirstAnswer.heightAnchor.constraint(equalToConstant: 98),
             
             buttonSecondAnswer.bottomAnchor.constraint(equalTo: buttonThirdAnswer.topAnchor, constant: -16),
             buttonSecondAnswer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             buttonSecondAnswer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            buttonSecondAnswer.heightAnchor.constraint(equalToConstant: 98),
+
             
             buttonThirdAnswer.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -47),
             buttonThirdAnswer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             buttonThirdAnswer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            buttonThirdAnswer.heightAnchor.constraint(equalToConstant: 98),
+
         ])
+        
+        if UIScreen.main.bounds.size.height >= 812 {
+            NSLayoutConstraint.activate([
+                cardStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
+                buttonFirstAnswer.heightAnchor.constraint(equalToConstant: 98),
+                buttonSecondAnswer.heightAnchor.constraint(equalToConstant: 98),
+                buttonThirdAnswer.heightAnchor.constraint(equalToConstant: 98),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                cardStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+                buttonFirstAnswer.heightAnchor.constraint(equalToConstant: 58),
+                buttonSecondAnswer.heightAnchor.constraint(equalToConstant: 58),
+                buttonThirdAnswer.heightAnchor.constraint(equalToConstant: 58),
+            ])
+        }
     }
     
     private func setupNavBar() {
@@ -365,6 +379,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
             titleQuestion.isHidden = true
             titleAmount.isHidden = false
             titleWord.isHidden = false
+            subTitleGame.isHidden = true
         } else {
             currentQuestionIndex += 1
             if currentQuestionIndex < quiz.count {

@@ -152,7 +152,6 @@ class AliasResultViewController: UIViewController {
             resultBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             resultBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            cardTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 138),
             cardTeam.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 47),
             cardTeam.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
             cardTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -184,12 +183,22 @@ class AliasResultViewController: UIViewController {
             tableViewAliasResult.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewAliasResult.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
+        if UIScreen.main.bounds.size.height >= 812 {
+            NSLayoutConstraint.activate([
+                cardTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 138),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                cardTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            ])
+        }
     }
     
     @objc private func buttonNextTeamTapped() {
         if isLastTeam {
             var countdown = 9
-            let alertController = UIAlertController(title: nil, message: "Результаты будут через \(countdown) секунд", preferredStyle: .alert)
+            let alertController = UIAlertController(title: nil, message: "Результаты делаются...", preferredStyle: .alert)
             self.present(alertController, animated: true, completion: nil)
 
             let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak alertController] timer in
@@ -198,7 +207,7 @@ class AliasResultViewController: UIViewController {
                     alertController?.dismiss(animated: true, completion: nil)
                     timer.invalidate()
                 } else {
-                    alertController?.message = "Результаты будут через \(countdown) секунд"
+                    alertController?.message = "Результаты делаются..."
                 }
             }
             timer.fire()

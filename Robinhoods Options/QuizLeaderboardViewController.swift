@@ -63,7 +63,6 @@ class QuizLeaderboardViewController: UIViewController {
             aliasleaderBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             aliasleaderBackground.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            tableViewAliasLeaderboard.topAnchor.constraint(equalTo: view.topAnchor, constant: 364),
             tableViewAliasLeaderboard.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableViewAliasLeaderboard.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableViewAliasLeaderboard.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -71,9 +70,20 @@ class QuizLeaderboardViewController: UIViewController {
             buttonNewGame.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             buttonNewGame.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            nameTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 220),
             nameTeam.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
+        
+        if UIScreen.main.bounds.size.height >= 812 {
+            NSLayoutConstraint.activate([
+                nameTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 220),
+                tableViewAliasLeaderboard.topAnchor.constraint(equalTo: view.topAnchor, constant: 364),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                nameTeam.topAnchor.constraint(equalTo: view.topAnchor, constant: 140),
+                tableViewAliasLeaderboard.topAnchor.constraint(equalTo: view.topAnchor, constant: 280),
+            ])
+        }
     }
     
     private func setupNavBar() {

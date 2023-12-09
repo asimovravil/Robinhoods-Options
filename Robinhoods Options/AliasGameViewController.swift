@@ -135,7 +135,6 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
         buttonCorrect.addTarget(self, action: #selector(correctButtonTapped), for: .touchUpInside)
 
         NSLayoutConstraint.activate([
-            titleGame.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
             titleGame.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             cardStack.topAnchor.constraint(equalTo: titleGame.bottomAnchor, constant: 60),
@@ -165,6 +164,16 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
             buttonCorrect.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -60),
             buttonCorrect.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 30),
         ])
+        
+        if UIScreen.main.bounds.size.height >= 812 {
+            NSLayoutConstraint.activate([
+                titleGame.topAnchor.constraint(equalTo: view.topAnchor, constant: 170),
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                titleGame.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            ])
+        }
     }
     
     private func setupNavBar() {
@@ -209,7 +218,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     
     private func startTimer() {
         countdownTimer?.invalidate()
-        remainingSeconds = 60
+        remainingSeconds = 10
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.remainingSeconds > 0 {
@@ -242,7 +251,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     }
 
     func restartGameForNextTeam() {
-        self.remainingSeconds = 60
+        self.remainingSeconds = 10
         self.guessedCardsCount = 0
         self.wordsGuessed = Array(repeating: false, count: 50)
 
