@@ -15,6 +15,8 @@ class AliasLeaderboardViewController: UIViewController {
     let buttonNewGame = UIButton()
     let nameTeam = UILabel()
     
+    var teamNames: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -89,7 +91,7 @@ class AliasLeaderboardViewController: UIViewController {
 
 extension AliasLeaderboardViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return teamNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -99,6 +101,7 @@ extension AliasLeaderboardViewController: UITableViewDataSource, UITableViewDele
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
         cell.placeWord.text = "\(indexPath.row + 1)"
+        cell.nameWord.text = teamNames[indexPath.row]
         return cell
     }
     
