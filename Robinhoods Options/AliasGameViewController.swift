@@ -219,6 +219,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
                 self.countdownTimer?.invalidate()
                 let aliasResultVC = AliasResultViewController(guessedCount: self.guessedCardsCount, skippedCount: self.words.count - self.guessedCardsCount)
                 aliasResultVC.words = self.words
+                aliasResultVC.isLastTeam = (currentTeamIndex == teamNames.count - 1)
                 aliasResultVC.isWordGuessed = self.wordsGuessed
                 if currentTeamIndex < teamNames.count {
                     aliasResultVC.teamName = teamNames[currentTeamIndex].name

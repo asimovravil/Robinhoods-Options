@@ -12,6 +12,7 @@ class AliasResultViewController: UIViewController {
     let tableViewAliasResult = UITableView(frame: .zero, style: .plain)
     var words: [String] = []
     var isWordGuessed: [Bool] = []
+    var isLastTeam: Bool = false
 
     let resultBackground = UIImageView()
     let cardTeam = UIView()
@@ -186,6 +187,11 @@ class AliasResultViewController: UIViewController {
     }
     
     @objc private func buttonNextTeamTapped() {
+        if isLastTeam {
+            buttonNextTeam.isEnabled = false
+            return
+        }
+        
         if let navigationController = navigationController {
             for controller in navigationController.viewControllers {
                 if let gameVC = controller as? AliasGameViewController {
