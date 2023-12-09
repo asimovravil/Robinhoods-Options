@@ -37,6 +37,8 @@
 		F1E059452B2374AA004A63E2 /* AliasResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059442B2374AA004A63E2 /* AliasResultCell.swift */; };
 		F1E059472B238BB0004A63E2 /* AliasLeaderboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059462B238BB0004A63E2 /* AliasLeaderboardViewController.swift */; };
 		F1E059492B238DA3004A63E2 /* AliasLeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E059482B238DA3004A63E2 /* AliasLeaderboardCell.swift */; };
+		F1E0594B2B243A8D004A63E2 /* QuizTeamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0594A2B243A8D004A63E2 /* QuizTeamViewController.swift */; };
+		F1E0594D2B243AA5004A63E2 /* QuizTeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0594C2B243AA5004A63E2 /* QuizTeamCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +73,8 @@
 		F1E059442B2374AA004A63E2 /* AliasResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasResultCell.swift; sourceTree = "<group>"; };
 		F1E059462B238BB0004A63E2 /* AliasLeaderboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasLeaderboardViewController.swift; sourceTree = "<group>"; };
 		F1E059482B238DA3004A63E2 /* AliasLeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AliasLeaderboardCell.swift; sourceTree = "<group>"; };
+		F1E0594A2B243A8D004A63E2 /* QuizTeamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTeamViewController.swift; sourceTree = "<group>"; };
+		F1E0594C2B243AA5004A63E2 /* QuizTeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizTeamCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 				F1E059442B2374AA004A63E2 /* AliasResultCell.swift */,
 				F1E059462B238BB0004A63E2 /* AliasLeaderboardViewController.swift */,
 				F1E059482B238DA3004A63E2 /* AliasLeaderboardCell.swift */,
+				F1E0594A2B243A8D004A63E2 /* QuizTeamViewController.swift */,
+				F1E0594C2B243AA5004A63E2 /* QuizTeamCell.swift */,
 				F1E0592D2B21CE98004A63E2 /* SettingsViewController.swift */,
 				F1E059312B21DA08004A63E2 /* PrivacyViewController.swift */,
 				F1E059332B21DD93004A63E2 /* FAQViewController.swift */,
@@ -236,6 +242,7 @@
 				F1E0593E2B233186004A63E2 /* AliasGameViewController.swift in Sources */,
 				F19F30442B21CA1000B5758F /* HomeViewController.swift in Sources */,
 				F1E059492B238DA3004A63E2 /* AliasLeaderboardCell.swift in Sources */,
+				F1E0594D2B243AA5004A63E2 /* QuizTeamCell.swift in Sources */,
 				F1E059382B21E4B6004A63E2 /* QuizListViewController.swift in Sources */,
 				F19F300F2B21C3D700B5758F /* OnboardingList.swift in Sources */,
 				F1E059432B2345A3004A63E2 /* AliasResultViewController.swift in Sources */,
@@ -249,6 +256,7 @@
 				F1E059342B21DD93004A63E2 /* FAQViewController.swift in Sources */,
 				F1E0592E2B21CE98004A63E2 /* SettingsViewController.swift in Sources */,
 				F1E059302B21CF98004A63E2 /* AppColor .swift in Sources */,
+				F1E0594B2B243A8D004A63E2 /* QuizTeamViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
