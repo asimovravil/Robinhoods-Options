@@ -8,9 +8,9 @@
 import UIKit
 
 class QuizTeamViewController: UIViewController {
-
+    
     var numberOfPlayers = 2
-    var teamNames: [String] = []
+    var playerNames: [String] = []
     
     let tableViewAliasTeam = UITableView(frame: .zero, style: .plain)
     let aliasStart = UIButton()
@@ -18,7 +18,7 @@ class QuizTeamViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = AppColor.backgroundLightGray.uiColor
         setupNavBar()
         setupUI()
@@ -29,7 +29,7 @@ class QuizTeamViewController: UIViewController {
         tableViewAliasTeam.reloadData()
         validateStartButton()
     }
-
+    
     
     private func setupUI() {
         tableViewAliasTeam.register(QuizTeamCell.self, forCellReuseIdentifier: QuizTeamCell.id)
@@ -45,7 +45,7 @@ class QuizTeamViewController: UIViewController {
         
         aliasStart.setImage(UIImage(named: "startAlias"), for: .normal)
         aliasStart.isEnabled = false
-        aliasStart.addTarget(self, action: #selector(aliasStartTapped), for: .touchUpInside)
+        aliasStart.addTarget(self, action: #selector(quizStartTapped), for: .touchUpInside)
         aliasStart.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(aliasStart)
         
@@ -77,21 +77,21 @@ class QuizTeamViewController: UIViewController {
         }
     }
     
-    @objc private func aliasStartTapped() {
-        let aliasGameViewController = AliasGameViewController()
-        aliasGameViewController.teamNames = teamNames.map { ($0, 0) }
-        navigationController?.pushViewController(aliasGameViewController, animated: true)
+    @objc private func quizStartTapped() {
+        let quizGameViewController = QuizGameViewController()
+        quizGameViewController.playerNames = playerNames.map { ($0, 0) }
+        navigationController?.pushViewController(quizGameViewController, animated: true)
     }
     
     private func setupNavBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
+        
         let titleLabel = UILabel()
         titleLabel.text = "Players"
         titleLabel.textColor = .black
         titleLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
         navigationItem.titleView = titleLabel
-
+        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundImage = UIImage(named: "navbar")
@@ -114,8 +114,8 @@ extension QuizTeamViewController: UITableViewDataSource, UITableViewDelegate, Qu
         cell.backgroundColor = .clear
         cell.teamPlaceHolder.placeholder = "Player \(indexPath.row + 1)"
         
-        if indexPath.row < teamNames.count {
-            cell.teamPlaceHolder.text = teamNames[indexPath.row]
+        if indexPath.row < playerNames.count {
+            cell.teamPlaceHolder.text = playerNames[indexPath.row]
         } else {
             cell.teamPlaceHolder.text = ""
         }
@@ -134,16 +134,16 @@ extension QuizTeamViewController: UITableViewDataSource, UITableViewDelegate, Qu
     func didChangeText(newText: String, in cell: QuizTeamCell) {
         if let indexPath = tableViewAliasTeam.indexPath(for: cell) {
             // Проверьте, что indexPath.row находится в пределах допустимого диапазона
-            if indexPath.row < teamNames.count {
-                teamNames[indexPath.row] = newText // Обновите данные в массиве teamNames
+            if indexPath.row < playerNames.count {
+                playerNames[indexPath.row] = newText // Обновите данные в массиве teamNames
             } else {
                 // Если индекс выходит за пределы текущей длины, добавьте новый элемент в массив
-                teamNames.append(newText)
+                playerNames.append(newText)
             }
         }
         validateStartButton()
     }
-
+    
     
     private func validateStartButton() {
         var allFieldsValid = true

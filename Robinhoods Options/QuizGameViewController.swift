@@ -17,8 +17,8 @@ struct QuizQuestion {
 class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
     
     var guessedCardsCount = 0
-    var teamNames: [(name: String, guessedCount: Int)] = []
     var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
+    var playerNames: [(String, Int)] = []
     
     var cardStack = SwipeCardStack()
     let subTitleGame = UILabel()
@@ -129,8 +129,10 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
                 self.updateUIForCurrentQuestion()
                 self.resetButtonColors()
             } else {
-                let homeVC = HomeViewController()
-                self.navigationController?.pushViewController(homeVC, animated: true)
+                let quizLeadVC = QuizLeaderboardViewController()
+                quizLeadVC.playerScores = self.playerNames
+                quizLeadVC.navigationItem.hidesBackButton = true
+                self.navigationController?.pushViewController(quizLeadVC, animated: true)
             }
         }
     }
@@ -365,8 +367,10 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
                 updateUIForCurrentQuestion()
                 resetButtonColors()
             } else {
-                let homeVC = HomeViewController()
-                self.navigationController?.pushViewController(homeVC, animated: true)
+                let quizLeadVC = QuizLeaderboardViewController()
+                quizLeadVC.playerScores = self.playerNames
+                quizLeadVC.navigationItem.hidesBackButton = true
+                self.navigationController?.pushViewController(quizLeadVC, animated: true)
             }
         }
     }
