@@ -8,13 +8,18 @@
 import UIKit
 import Shuffle
 
+struct QuizQuestion {
+    let question: String
+    let answers: [String]
+    let correctAnswerIndex: Int
+}
+
 class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
 
     var guessedCardsCount = 0
     var teamNames: [(name: String, guessedCount: Int)] = []
     var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
     
-    var currentTeamIndex = 0
     var cardStack = SwipeCardStack()
     let subTitleGame = UILabel()
     let titleQuestion = UILabel()
@@ -26,18 +31,49 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     let buttonSecondAnswer = UIButton()
     let buttonThirdAnswer = UIButton()
     
-    let words = [
-        "Apple", "Banana", "Cat", "Dog", "Elephant",
-        "Fish", "Giraffe", "Horse", "Iguana", "Jaguar",
-        "Zebra", "Lion", "Bear", "Wolf", "Cheetah",
-        "Tiger", "Crocodile", "Parrot", "Eagle", "Penguin",
-        "Dolphin", "Shark", "Turtle", "Rabbit", "Hamster",
-        "Beauty", "Prince", "Wizard", "Queen", "Flower",
-        "Dragon", "Vampire", "Zombie", "Witch", "Elf",
-        "Robot", "Car", "Plane", "Train", "Ship",
-        "Mountain", "Beach", "Sun", "Moon", "Star",
-        "Book", "Music", "Movie", "Computer", "Phone"
+    var quiz: [QuizQuestion] = [
+        QuizQuestion(question: "What is diversification in finance?",
+                     answers: ["Spreading investments across various financial instruments", "Focusing all investments in one stock", "Buying and selling stocks frequently"],
+                     correctAnswerIndex: 0),
+        
+        QuizQuestion(question: "What does 'bull market' signify?",
+                     answers: ["A declining market trend", "A stable market trend", "A rising market trend"],
+                     correctAnswerIndex: 2),
+
+        QuizQuestion(question: "What is a 'bear market'?",
+                     answers: ["A market showing financial growth", "A market experiencing decline", "A market with stable prices"],
+                     correctAnswerIndex: 1),
+
+        QuizQuestion(question: "What is a 'blue chip' stock?",
+                     answers: ["A high-risk stock", "A stock from new companies", "A stock from nationally recognized companies with stable earnings"],
+                     correctAnswerIndex: 2),
+
+        QuizQuestion(question: "What does 'IPO' stand for?",
+                     answers: ["Initial Public Offering", "Internal Private Operation", "Immediate Profit Opportunity"],
+                     correctAnswerIndex: 0),
+
+        QuizQuestion(question: "What is 'compound interest'?",
+                     answers: ["Interest on the principal amount only", "Interest on both principal and accrued interest", "A fixed interest rate for the life of the investment"],
+                     correctAnswerIndex: 1),
+
+        QuizQuestion(question: "What does 'liquidity' mean in finance?",
+                     answers: ["The ease of turning assets into cash", "The profitability of a company", "The volume of stock traded on the market"],
+                     correctAnswerIndex: 0),
+
+        QuizQuestion(question: "What is a 'bond'?",
+                     answers: ["A loan to a corporation or government", "A type of stock", "An insurance policy for investments"],
+                     correctAnswerIndex: 0),
+
+        QuizQuestion(question: "What is 'market capitalization'?",
+                     answers: ["The total value of a company's outstanding shares", "The total debts of a company", "The yearly profit of a company"],
+                     correctAnswerIndex: 0),
+
+        QuizQuestion(question: "What is a 'mutual fund'?",
+                     answers: ["A personal savings account", "An investment vehicle made up of a pool of funds from many investors", "A government-issued retirement fund"],
+                     correctAnswerIndex: 1)
     ]
+
+    var currentQuestionIndex = 0
 
     var sampleCards: [UIImage] = [
         UIImage(named: "card")
@@ -50,6 +86,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         view.backgroundColor = AppColor.backgroundLightGray.uiColor
         setupUI()
         setupNavBar()
+        updateUIForCurrentQuestion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +100,56 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         buttonFirstAnswer.layer.cornerRadius = 30
         buttonSecondAnswer.layer.cornerRadius = 30
         buttonThirdAnswer.layer.cornerRadius = 30
+    }
+    
+    private func updateUIForCurrentQuestion() {
+        let currentQuestion = quiz[currentQuestionIndex]
+        titleWord.text = currentQuestion.question
+        buttonFirstAnswer.setTitle(currentQuestion.answers[0], for: .normal)
+        buttonSecondAnswer.setTitle(currentQuestion.answers[1], for: .normal)
+        buttonThirdAnswer.setTitle(currentQuestion.answers[2], for: .normal)
+        
+        titleAmount.text = "Question \(currentQuestionIndex + 1)/\(quiz.count)"
+    }
+
+    @objc private func answerButtonTapped(_ sender: UIButton) {
+        let correctAnswerIndex = quiz[currentQuestionIndex].correctAnswerIndex
+
+        if sender.tag == correctAnswerIndex {
+            sender.backgroundColor = .green
+        } else {
+            sender.backgroundColor = .red
+        }
+
+        disableButtons()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.currentQuestionIndex += 1
+            if self.currentQuestionIndex < self.quiz.count {
+                self.updateUIForCurrentQuestion()
+                self.resetButtonColors()
+            } else {
+                let homeVC = HomeViewController()
+                self.navigationController?.pushViewController(homeVC, animated: true)
+            }
+        }
+    }
+
+    private func disableButtons() {
+        buttonFirstAnswer.isEnabled = false
+        buttonSecondAnswer.isEnabled = false
+        buttonThirdAnswer.isEnabled = false
+    }
+
+    private func resetButtonColors() {
+        buttonFirstAnswer.backgroundColor = .white
+        buttonSecondAnswer.backgroundColor = .white
+        buttonThirdAnswer.backgroundColor = .white
+
+        // Включаем кнопки обратно
+        buttonFirstAnswer.isEnabled = true
+        buttonSecondAnswer.isEnabled = true
+        buttonThirdAnswer.isEnabled = true
     }
     
     private func setupUI() {
@@ -110,7 +197,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         titleWord.numberOfLines = 0
         titleWord.textAlignment = .center
         titleWord.isHidden = true
-        titleWord.font = UIFont(name: "NotoSans-Bold", size: 32)
+        titleWord.font = UIFont(name: "NotoSans-Bold", size: 24)
         titleWord.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleWord)
         
@@ -147,6 +234,14 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         buttonThirdAnswer.backgroundColor = .white
         buttonThirdAnswer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonThirdAnswer)
+        
+        buttonFirstAnswer.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside)
+        buttonSecondAnswer.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside)
+        buttonThirdAnswer.addTarget(self, action: #selector(answerButtonTapped), for: .touchUpInside)
+        
+        buttonFirstAnswer.isHidden = true
+        buttonSecondAnswer.isHidden = true
+        buttonThirdAnswer.isHidden = true
 
         NSLayoutConstraint.activate([
             cardStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
@@ -169,6 +264,8 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
             
             titleWord.centerXAnchor.constraint(equalTo: cardStack.centerXAnchor),
             titleWord.centerYAnchor.constraint(equalTo: cardStack.centerYAnchor),
+            titleWord.leadingAnchor.constraint(equalTo: cardStack.leadingAnchor, constant: 24),
+            titleWord.trailingAnchor.constraint(equalTo: cardStack.trailingAnchor, constant: -24),
             
             buttonFirstAnswer.bottomAnchor.constraint(equalTo: buttonSecondAnswer.topAnchor, constant: -16),
             buttonFirstAnswer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -212,7 +309,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     }
     
     func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-        return sampleCards.count + 50
+        return 11
     }
     
     // MARK: SwipeCardStackDelegate
@@ -223,31 +320,23 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
         if index == 0 {
+            buttonFirstAnswer.isHidden = false
+            buttonSecondAnswer.isHidden = false
+            buttonThirdAnswer.isHidden = false
             imageSwipe.isHidden = true
             titleQuestion.isHidden = true
-            subTitleGame.isHidden = true
-            titleWord.isHidden = false
             titleAmount.isHidden = false
-        }
-
-        if index < words.count - 1 {
-            titleWord.text = words[index + 1]
+            titleWord.isHidden = false
         } else {
-            titleWord.text = "No more words"
+            currentQuestionIndex += 1
+            if currentQuestionIndex < quiz.count {
+                updateUIForCurrentQuestion()
+                resetButtonColors()
+            } else {
+                let homeVC = HomeViewController()
+                self.navigationController?.pushViewController(homeVC, animated: true)
+            }
         }
-
-        let currentAmount = index + 1
-        titleAmount.text = "\(currentAmount)/\(words.count)"
-
-        if direction == .right {
-            guessedCardsCount += 1
-            wordsGuessed[index] = true
-        } else if direction == .left {
-            guessedCardsCount = max(guessedCardsCount - 1, 0)  // Убедитесь, что счетчик не уйдет в минус
-            wordsGuessed[index] = false
-        }
-
-        print("Guessed Cards Count: \(guessedCardsCount)")
     }
 
     
