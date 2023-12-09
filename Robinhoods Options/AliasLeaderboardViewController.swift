@@ -46,6 +46,7 @@ class AliasLeaderboardViewController: UIViewController {
         view.addSubview(tableViewAliasLeaderboard)
         
         buttonNewGame.setImage(UIImage(named: "newGame"), for: .normal)
+        buttonNewGame.addTarget(self, action: #selector(buttonNewGameTapped), for: .touchUpInside)
         buttonNewGame.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(buttonNewGame)
         
@@ -83,6 +84,12 @@ class AliasLeaderboardViewController: UIViewController {
     }
     
     @objc private func skipButtonTapped() {
+        let homeVC = HomeViewController()
+        homeVC.navigationItem.hidesBackButton = true
+        self.navigationController?.pushViewController(homeVC, animated: true)
+    }
+    
+    @objc func buttonNewGameTapped() {
         let homeVC = HomeViewController()
         homeVC.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(homeVC, animated: true)

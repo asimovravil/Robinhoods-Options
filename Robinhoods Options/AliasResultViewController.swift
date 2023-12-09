@@ -8,12 +8,12 @@
 import UIKit
 
 class AliasResultViewController: UIViewController {
-
+    
     let tableViewAliasResult = UITableView(frame: .zero, style: .plain)
     var words: [String] = []
     var isWordGuessed: [Bool] = []
     var isLastTeam: Bool = false
-
+    
     let resultBackground = UIImageView()
     let cardTeam = UIView()
     let nameTeam = UILabel()
@@ -26,7 +26,7 @@ class AliasResultViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.setNavigationBarHidden(true, animated: false)
         setupUI()
         
@@ -40,7 +40,7 @@ class AliasResultViewController: UIViewController {
             amountGuessed.text = "\(guessedCount)"
         }
     }
-
+    
     var skippedCount: Int = 0 {
         didSet {
             amountSkipped.text = "\(skippedCount)"
@@ -64,7 +64,7 @@ class AliasResultViewController: UIViewController {
         self.guessedCount = guessedCount
         self.skippedCount = skippedCount
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -172,7 +172,7 @@ class AliasResultViewController: UIViewController {
             
             titleSkipped.topAnchor.constraint(equalTo: titleGuessed.bottomAnchor, constant: 8),
             titleSkipped.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-
+            
             amountSkipped.topAnchor.constraint(equalTo: amountGuessed.bottomAnchor, constant: 8),
             amountSkipped.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
@@ -188,6 +188,20 @@ class AliasResultViewController: UIViewController {
     
     @objc private func buttonNextTeamTapped() {
         if isLastTeam {
+            var countdown = 9
+            let alertController = UIAlertController(title: nil, message: "Результаты будут через \(countdown) секунд", preferredStyle: .alert)
+            self.present(alertController, animated: true, completion: nil)
+
+            let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak alertController] timer in
+                countdown -= 1
+                if countdown <= 0 {
+                    alertController?.dismiss(animated: true, completion: nil)
+                    timer.invalidate()
+                } else {
+                    alertController?.message = "Результаты будут через \(countdown) секунд"
+                }
+            }
+            timer.fire()
             buttonNextTeam.isEnabled = false
             return
         }
@@ -217,7 +231,7 @@ extension AliasResultViewController: UITableViewDataSource, UITableViewDelegate 
         cell.backgroundColor = .clear
         let word = words[indexPath.row]
         cell.nameWord.text = word
-
+        
         if isWordGuessed[indexPath.row] {
             cell.imageWord.image = UIImage(named: "correct")
         } else {

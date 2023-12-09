@@ -209,7 +209,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     
     private func startTimer() {
         countdownTimer?.invalidate()
-        remainingSeconds = 5
+        remainingSeconds = 60
         countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
             if self.remainingSeconds > 0 {
@@ -242,7 +242,7 @@ class AliasGameViewController: UIViewController, SwipeCardStackDataSource, Swipe
     }
 
     func restartGameForNextTeam() {
-        self.remainingSeconds = 5
+        self.remainingSeconds = 60
         self.guessedCardsCount = 0
         self.wordsGuessed = Array(repeating: false, count: 50)
 
