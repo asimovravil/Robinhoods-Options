@@ -20,6 +20,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
     var playerNames: [(String, Int)] = []
     
+    var currentPlayerIndex = 0
     var cardStack = SwipeCardStack()
     let subTitleGame = UILabel()
     let titleQuestion = UILabel()
@@ -114,8 +115,10 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     
     @objc private func answerButtonTapped(_ sender: UIButton) {
         let correctAnswerIndex = quiz[currentQuestionIndex].correctAnswerIndex
+        let isCorrectAnswer = sender.tag == correctAnswerIndex
         
-        if sender.tag == correctAnswerIndex {
+        if isCorrectAnswer {
+            playerNames[currentPlayerIndex].1 += 1
             sender.backgroundColor = .green
         } else {
             sender.backgroundColor = .red
@@ -124,6 +127,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         disableButtons()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.currentPlayerIndex = (self.currentPlayerIndex + 1) % self.playerNames.count
             self.currentQuestionIndex += 1
             if self.currentQuestionIndex < self.quiz.count {
                 self.updateUIForCurrentQuestion()

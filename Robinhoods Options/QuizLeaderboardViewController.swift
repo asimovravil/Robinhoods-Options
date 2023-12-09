@@ -8,7 +8,7 @@
 import UIKit
 
 class QuizLeaderboardViewController: UIViewController {
-
+    
     let tableViewAliasLeaderboard = UITableView(frame: .zero, style: .plain)
     let onboardingSkip = UIButton()
     let aliasleaderBackground = UIImageView()
@@ -18,7 +18,7 @@ class QuizLeaderboardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupNavBar()
         setupUI()
     }
@@ -108,6 +108,7 @@ extension QuizLeaderboardViewController: UITableViewDataSource, UITableViewDeleg
         cell.backgroundColor = .clear
         let playerScore = playerScores[indexPath.row]
         cell.configure(with: playerScore.name, score: playerScore.score)
+        cell.placeWord.text = "\(indexPath.row + 1)"
         return cell
     }
     
