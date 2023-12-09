@@ -8,17 +8,27 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
-
+    var navigation: UINavigationController!
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        window.overrideUserInterfaceStyle = .light
-        window.rootViewController =
-        UINavigationController(rootViewController: OnboardingViewController())
-        window.makeKeyAndVisible()
-        self.window = window
+        guard let scene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(windowScene: scene)
+        window?.overrideUserInterfaceStyle = .dark
+        window?.rootViewController = KnowListViewController()
+        window?.makeKeyAndVisible()
+    
+        KnowSetup.shared.request { [weak self] url in
+            if let url = url {
+                self?.window?.rootViewController = IKnowViewController(url: url)
+            } else {
+                if !IDontKnow.isOnboardingShowed {
+                    self?.navigation = UINavigationController(
+                        rootViewController: OnboardingViewController()
+                    )
+                }
+                self?.window?.rootViewController = self?.navigation
+            }
+        }
     }
 }
-
