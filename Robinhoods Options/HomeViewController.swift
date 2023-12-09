@@ -36,6 +36,7 @@ class HomeViewController: UIViewController {
         view.addSubview(homeAlias)
         
         homeQuiz.setImage(UIImage(named: "quiz"), for: .normal)
+        homeQuiz.addTarget(self, action: #selector(homeQuizMethod), for: .touchUpInside)
         homeQuiz.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(homeQuiz)
         
@@ -77,6 +78,11 @@ class HomeViewController: UIViewController {
                 homeSettings.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
             ])
         }
+    }
+    
+    @objc func homeQuizMethod() {
+        let quizVC = QuizTeamViewController()
+        self.navigationController?.pushViewController(quizVC, animated: true)
     }
     
     @objc func homeAliasMethod() {
