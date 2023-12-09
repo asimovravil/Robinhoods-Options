@@ -15,7 +15,7 @@ struct QuizQuestion {
 }
 
 class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeCardStackDelegate {
-
+    
     var guessedCardsCount = 0
     var teamNames: [(name: String, guessedCount: Int)] = []
     var wordsGuessed: [Bool] = Array(repeating: false, count: 50)
@@ -39,47 +39,47 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         QuizQuestion(question: "What does 'bull market' signify?",
                      answers: ["A declining market trend", "A stable market trend", "A rising market trend"],
                      correctAnswerIndex: 2),
-
+        
         QuizQuestion(question: "What is a 'bear market'?",
                      answers: ["A market showing financial growth", "A market experiencing decline", "A market with stable prices"],
                      correctAnswerIndex: 1),
-
+        
         QuizQuestion(question: "What is a 'blue chip' stock?",
                      answers: ["A high-risk stock", "A stock from new companies", "A stock from nationally recognized companies with stable earnings"],
                      correctAnswerIndex: 2),
-
+        
         QuizQuestion(question: "What does 'IPO' stand for?",
                      answers: ["Initial Public Offering", "Internal Private Operation", "Immediate Profit Opportunity"],
                      correctAnswerIndex: 0),
-
+        
         QuizQuestion(question: "What is 'compound interest'?",
                      answers: ["Interest on the principal amount only", "Interest on both principal and accrued interest", "A fixed interest rate for the life of the investment"],
                      correctAnswerIndex: 1),
-
+        
         QuizQuestion(question: "What does 'liquidity' mean in finance?",
                      answers: ["The ease of turning assets into cash", "The profitability of a company", "The volume of stock traded on the market"],
                      correctAnswerIndex: 0),
-
+        
         QuizQuestion(question: "What is a 'bond'?",
                      answers: ["A loan to a corporation or government", "A type of stock", "An insurance policy for investments"],
                      correctAnswerIndex: 0),
-
+        
         QuizQuestion(question: "What is 'market capitalization'?",
                      answers: ["The total value of a company's outstanding shares", "The total debts of a company", "The yearly profit of a company"],
                      correctAnswerIndex: 0),
-
+        
         QuizQuestion(question: "What is a 'mutual fund'?",
                      answers: ["A personal savings account", "An investment vehicle made up of a pool of funds from many investors", "A government-issued retirement fund"],
                      correctAnswerIndex: 1)
     ]
-
+    
     var currentQuestionIndex = 0
-
+    
     var sampleCards: [UIImage] = [
         UIImage(named: "card")
     ].compactMap { $0 }
     var cards: [UIView] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -111,18 +111,18 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         
         titleAmount.text = "Question \(currentQuestionIndex + 1)/\(quiz.count)"
     }
-
+    
     @objc private func answerButtonTapped(_ sender: UIButton) {
         let correctAnswerIndex = quiz[currentQuestionIndex].correctAnswerIndex
-
+        
         if sender.tag == correctAnswerIndex {
             sender.backgroundColor = .green
         } else {
             sender.backgroundColor = .red
         }
-
+        
         disableButtons()
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.currentQuestionIndex += 1
             if self.currentQuestionIndex < self.quiz.count {
@@ -134,18 +134,18 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
             }
         }
     }
-
+    
     private func disableButtons() {
         buttonFirstAnswer.isEnabled = false
         buttonSecondAnswer.isEnabled = false
         buttonThirdAnswer.isEnabled = false
     }
-
+    
     private func resetButtonColors() {
         buttonFirstAnswer.backgroundColor = .white
         buttonSecondAnswer.backgroundColor = .white
         buttonThirdAnswer.backgroundColor = .white
-
+        
         // Включаем кнопки обратно
         buttonFirstAnswer.isEnabled = true
         buttonSecondAnswer.isEnabled = true
@@ -153,6 +153,23 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     }
     
     private func setupUI() {
+        let arrowImage = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(weight: .medium))
+        
+        let arrowImageView1 = UIImageView(image: arrowImage)
+        let arrowImageView2 = UIImageView(image: arrowImage)
+        let arrowImageView3 = UIImageView(image: arrowImage)
+        
+        arrowImageView1.tintColor = .gray
+        arrowImageView2.tintColor = .gray
+        arrowImageView3.tintColor = .gray
+        
+        buttonFirstAnswer.addSubview(arrowImageView1)
+        buttonSecondAnswer.addSubview(arrowImageView2)
+        buttonThirdAnswer.addSubview(arrowImageView3)
+        arrowImageView1.translatesAutoresizingMaskIntoConstraints = false
+        arrowImageView2.translatesAutoresizingMaskIntoConstraints = false
+        arrowImageView3.translatesAutoresizingMaskIntoConstraints = false
+        
         cardStack.dataSource = self
         cardStack.delegate = self
         cardStack.translatesAutoresizingMaskIntoConstraints = false
@@ -202,9 +219,9 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         view.addSubview(titleWord)
         
         buttonFirstAnswer.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-
+        
         buttonSecondAnswer.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-
+        
         buttonThirdAnswer.contentEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         
         buttonFirstAnswer.setTitle("1 answer", for: .normal)
@@ -242,8 +259,23 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
         buttonFirstAnswer.isHidden = true
         buttonSecondAnswer.isHidden = true
         buttonThirdAnswer.isHidden = true
-
+        
         NSLayoutConstraint.activate([
+            arrowImageView1.centerYAnchor.constraint(equalTo: buttonFirstAnswer.centerYAnchor),
+            arrowImageView1.trailingAnchor.constraint(equalTo: buttonFirstAnswer.trailingAnchor, constant: -20),
+            arrowImageView1.widthAnchor.constraint(equalToConstant: 24),
+            arrowImageView1.heightAnchor.constraint(equalToConstant: 24),
+            
+            arrowImageView2.centerYAnchor.constraint(equalTo: buttonSecondAnswer.centerYAnchor),
+            arrowImageView2.trailingAnchor.constraint(equalTo: buttonSecondAnswer.trailingAnchor, constant: -20),
+            arrowImageView2.widthAnchor.constraint(equalToConstant: 24),
+            arrowImageView2.heightAnchor.constraint(equalToConstant: 24),
+            
+            arrowImageView3.centerYAnchor.constraint(equalTo: buttonThirdAnswer.centerYAnchor),
+            arrowImageView3.trailingAnchor.constraint(equalTo: buttonThirdAnswer.trailingAnchor, constant: -20),
+            arrowImageView3.widthAnchor.constraint(equalToConstant: 24),
+            arrowImageView3.heightAnchor.constraint(equalToConstant: 24),
+            
             cardStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
             cardStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 47),
             cardStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -47),
@@ -286,13 +318,13 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
     
     private func setupNavBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
+        
         let titleLabel = UILabel()
         titleLabel.text = "Quiz"
         titleLabel.textColor = .black
         titleLabel.font = UIFont(name: "NotoSans-SemiBold", size: 16)
         navigationItem.titleView = titleLabel
-
+        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.configureWithOpaqueBackground()
         navBarAppearance.backgroundImage = UIImage(named: "navbar")
@@ -338,7 +370,7 @@ class QuizGameViewController: UIViewController, SwipeCardStackDataSource, SwipeC
             }
         }
     }
-
+    
     
     func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection) {
         print("Card undo")
