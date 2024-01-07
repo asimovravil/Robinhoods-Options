@@ -43,6 +43,11 @@ class FAQViewController: UIViewController, UIPageViewControllerDataSource, UIPag
         setupNavBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func setupNavBar() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 

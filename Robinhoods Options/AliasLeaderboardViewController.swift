@@ -24,6 +24,11 @@ class AliasLeaderboardViewController: UIViewController {
         setupUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     private func setupUI() {
         onboardingSkip.setImage(UIImage(named: "skip"), for: .normal)
         view.addSubview(onboardingSkip)

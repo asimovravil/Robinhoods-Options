@@ -22,6 +22,18 @@ class AliasTeamViewController: UIViewController {
         view.backgroundColor = AppColor.backgroundLightGray.uiColor
         setupNavBar()
         setupUI()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     @objc private func aliasPlusTapped() {

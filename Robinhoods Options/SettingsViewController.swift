@@ -26,6 +26,11 @@ class SettingsViewController: UIViewController {
         setupNavBar()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     private func setupUI() {
         view.addSubview(settings1)
         view.addSubview(settings2)
